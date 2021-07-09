@@ -26,7 +26,45 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   createBoard();
 
+  // Drag the candies
+  let colorBeingDragged;
+  let colorBeingReplaced;
+  let squareIdBeingDragged;
+  let squareIdBeingReplaced;
 
+  squares.forEach(square => square.addEventListener('dragstart', dragStart))
+  squares.forEach(square => square.addEventListener('dragend', dragEnd))
+  squares.forEach(square => square.addEventListener('dragover', dragOver))
+  squares.forEach(square => square.addEventListener('dragenter', dragEnter))
+  squares.forEach(square => square.addEventListener('dragleave', dragLeave))
+  squares.forEach(square => square.addEventListener('drop', dragDrop))
+
+  function dragStart() {
+    colorBeingDragged = this.style.backgroundColor
+    squareIdBeingDragged = parseInt(this.id)
+  }
+
+  function dragEnd() {
+
+  }
+
+  function dragOver(e) {
+    e.preventDefault()
+  }
+
+  function dragEnter() {
+
+  }
+
+  function dragLeave() {
+
+  }
+
+  function dragDrop() {
+    colorBeingReplaced = this.style.backgroundColor
+    squareIdBeingReplaced = parseInt(this.id)
+    squares[squareIdBeingDragged].style.backgroundColor = colorBeingReplaced
+  }
 
 
 });
