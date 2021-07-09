@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const grid = document.querySelector('.grid');
   const width = 8;
   const squares = [];
+  let score = 0;
 
   const candyColors = [
     'red',
@@ -10,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     'purple',
     'green',
     'blue'
-  ]
+  ];
 
   // Create Board
   function createBoard() {
@@ -24,9 +25,10 @@ document.addEventListener('DOMContentLoaded', () => {
       squares.push(square);
     }
   };
+
   createBoard();
 
-  // Drag the candies
+  // Drag the squares
   let colorBeingDragged;
   let colorBeingReplaced;
   let squareIdBeingDragged;
@@ -47,20 +49,20 @@ document.addEventListener('DOMContentLoaded', () => {
   function dragEnd() {
     // defining valid moves
     let validMoves = [
-      squareIdBeingDragged -1, 
-      squareIdBeingDragged -width,
-      squareIdBeingDragged +1,
-      squareIdBeingDragged +width 
+      squareIdBeingDragged - 1,
+      squareIdBeingDragged - width,
+      squareIdBeingDragged + 1,
+      squareIdBeingDragged + width
     ];
 
     let validMove = validMoves.includes(squareIdBeingReplaced);
 
-    if(squareIdBeingReplaced && validMove) {
+    if (squareIdBeingReplaced && validMove) {
       squareIdBeingReplaced = null;
-    } else if(squareIdBeingReplaced && !validMove){
+    } else if (squareIdBeingReplaced && !validMove) {
       squares[squareIdBeingReplaced].style.backgroundColor = colorBeingReplaced;
       squares[squareIdBeingDragged].style.backgroundColor = colorBeingDragged;
-    } else{
+    } else {
       squares[squareIdBeingDragged].style.backgroundColor = colorBeingDragged;
     };
 
@@ -86,4 +88,23 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
 
+  // Checking for matches
+  // check for row of Three
+  function checkRowForThree() {
+    for (let i = 0; i < 61; i++) {
+      let rowOfThree = [i, i + 1, i + 2];
+      let decidedColor = squares[i].style.backgroundColor;
+      const isBlank = squares[i].style.backgroundColor === '';
+
+      if (rowOfThree.every(index => squares[index].style.backgroundColor === decidedColor && !isBlank)) {
+        score += 3
+
+        rowOfThree.forEach(index => {
+          squares[index].style.backgroundColor = ''
+        })
+      }
+    }
+  }
+
+  checkRowForThree();
 });
