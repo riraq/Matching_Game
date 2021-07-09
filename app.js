@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
   const grid = document.querySelector('.grid');
+  const scoreDisplay = document.getElementById('score');
   const width = 8;
   const squares = [];
   let score = 0;
@@ -96,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
         squares[i].style.backgroundColor = '';
         const firstRow = [0, 1, 2, 3, 4, 5, 6, 7];
         const isFirstRow = firstRow.includes(i);
-        if(isFirstRow && squares[i].style.backgroundColor === ''){
+        if (isFirstRow && squares[i].style.backgroundColor === '') {
           let randomColor = Math.floor(Math.random() * candyColors.length)
           squares[i].style.backgroundColor = candyColors[randomColor]
         }
@@ -118,14 +119,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (rowOfFour.every(index => squares[index].style.backgroundColor === decidedColor && !isBlank)) {
         score += 4
-
+        scoreDisplay.innerHTML = score;
         rowOfFour.forEach(index => {
           squares[index].style.backgroundColor = ''
         })
       }
     }
   }
-
   checkRowForFour();
 
   // check for column of Four
@@ -137,18 +137,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (columnOfFour.every(index => squares[index].style.backgroundColor === decidedColor && !isBlank)) {
         score += 4
-
+        scoreDisplay.innerHTML = score;
         columnOfFour.forEach(index => {
           squares[index].style.backgroundColor = ''
         })
       }
     }
   }
-
   checkColumnForFour();
-
-
-
 
   // check for row of Three
   function checkRowForThree() {
@@ -162,14 +158,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (rowOfThree.every(index => squares[index].style.backgroundColor === decidedColor && !isBlank)) {
         score += 3
-
+        scoreDisplay.innerHTML = score;
         rowOfThree.forEach(index => {
           squares[index].style.backgroundColor = ''
         })
       }
     }
   }
-
   checkRowForThree();
 
   // check for column of Three
@@ -181,14 +176,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (columnOfThree.every(index => squares[index].style.backgroundColor === decidedColor && !isBlank)) {
         score += 3
-
+        scoreDisplay.innerHTML = score;
         columnOfThree.forEach(index => {
           squares[index].style.backgroundColor = ''
         })
       }
     }
   }
-
   checkColumnForThree();
 
   window.setInterval(function () {
