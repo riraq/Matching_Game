@@ -107,4 +107,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   checkRowForThree();
+
+  window.setInterval(function(){
+    checkRowForThree();
+  }, 100)
 });
