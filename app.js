@@ -91,10 +91,16 @@ document.addEventListener('DOMContentLoaded', () => {
   // drop squares once some have been cleared
   function moveDown() {
     for (let i = 0; i < 55; i++) {
-      if (squares[i + width].style.backgroundColor === ''){
-        squares[i + width].style.backgroundColor = squares[i].style.backgroundColor
-        squares[i].style.backgroundColor = ''
-      }     
+      if (squares[i + width].style.backgroundColor === '') {
+        squares[i + width].style.backgroundColor = squares[i].style.backgroundColor;
+        squares[i].style.backgroundColor = '';
+        const firstRow = [0, 1, 2, 3, 4, 5, 6, 7];
+        const isFirstRow = firstRow.includes(i);
+        if(isFirstRow && squares[i].style.backgroundColor === ''){
+          let randomColor = Math.floor(Math.random() * candyColors.length)
+          squares[i].style.backgroundColor = candyColors[randomColor]
+        }
+      }
     }
   }
 
