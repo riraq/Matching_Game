@@ -89,12 +89,60 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   // Checking for matches
+
+  // check for row of Four
+  function checkRowForFour() {
+    for (let i = 0; i < 60; i++) {
+      let rowOfFour = [i, i + 1, i + 2, i + 3];
+      let decidedColor = squares[i].style.backgroundColor;
+      const isBlank = squares[i].style.backgroundColor === '';
+
+      const notValid = [5, 6, 7, 13, 14, 15, 21, 22, 23, 29, 30, 31, 37, 38, 39, 45, 46, 47, 53, 54, 55]
+      if (notValid.includes(i)) continue
+
+      if (rowOfFour.every(index => squares[index].style.backgroundColor === decidedColor && !isBlank)) {
+        score += 4
+
+        rowOfFour.forEach(index => {
+          squares[index].style.backgroundColor = ''
+        })
+      }
+    }
+  }
+
+  checkRowForFour();
+
+  // check for column of Four
+  function checkColumnForFour() {
+    for (let i = 0; i < 39; i++) {
+      let columnOfFour = [i, i + width, i + width * 2, i + width * 3];
+      let decidedColor = squares[i].style.backgroundColor;
+      const isBlank = squares[i].style.backgroundColor === '';
+
+      if (columnOfFour.every(index => squares[index].style.backgroundColor === decidedColor && !isBlank)) {
+        score += 4
+
+        columnOfFour.forEach(index => {
+          squares[index].style.backgroundColor = ''
+        })
+      }
+    }
+  }
+
+  checkColumnForFour();
+
+
+
+
   // check for row of Three
   function checkRowForThree() {
     for (let i = 0; i < 61; i++) {
       let rowOfThree = [i, i + 1, i + 2];
       let decidedColor = squares[i].style.backgroundColor;
       const isBlank = squares[i].style.backgroundColor === '';
+
+      const notValid = [6, 7, 14, 15, 22, 23, 30, 31, 38, 39, 46, 47, 54, 55]
+      if (notValid.includes(i)) continue
 
       if (rowOfThree.every(index => squares[index].style.backgroundColor === decidedColor && !isBlank)) {
         score += 3
@@ -128,6 +176,8 @@ document.addEventListener('DOMContentLoaded', () => {
   checkColumnForThree();
 
   window.setInterval(function () {
+    checkRowForFour();
+    checkColumnForFour();
     checkRowForThree();
     checkColumnForThree();
   }, 100)
